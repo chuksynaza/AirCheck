@@ -70,17 +70,11 @@ public class Splash extends Activity implements OnMapReadyCallback, GoogleApiCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-       // progressBar = (ContentLoadingProgressBar) findViewById(R.id.progressBar);
-//        progressBar.show();
-//        progressBar.setProgress(15);
         googleApiClient = new GoogleApiClient.Builder(this)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API)
                     .build();
-       // googleApiClient.connect();
-        Intent base = new Intent(Splash.this, MainActivity.class);
-        startActivity(base);
 
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         imei = telephonyManager.getDeviceId();
@@ -111,34 +105,6 @@ public class Splash extends Activity implements OnMapReadyCallback, GoogleApiCli
         super.onResume();
     }
 
-    public void splash_change()
-    {
-        Observable.timer(0, 1, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .take(5)
-                .subscribe(new Observer<Long>() {
-                    @Override
-                    public void onCompleted() {
-                        //progressBar.setProgress(100);
-                        //progressBar.show();
-                        ImageView imageView = (ImageView) findViewById(R.id.logo);
-                      Intent move = new Intent(Splash.this, SignIn.class);
-                        startActivity(move);
-//                       ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(Splash.this, (View)                              imageView, "logo");
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long aLong)
-                    {
-                    }
-                });
-    }
 
     @Override
     public void onConnected(Bundle bundle)
@@ -160,7 +126,6 @@ public class Splash extends Activity implements OnMapReadyCallback, GoogleApiCli
                         @Override
                         public void onCompleted() {
                             Intent base = new Intent(Splash.this, MainActivity.class);
-                           // base.putExtra("hello")
                             startActivity(base);
 
                         }
@@ -182,10 +147,10 @@ public class Splash extends Activity implements OnMapReadyCallback, GoogleApiCli
                             Log.d("Humidity", locationModels.getHumidity().toString());
                         }
                     });
-            Intent alpha = new Intent(Splash.this, SignIn.class);
-            startActivity(alpha);
-            getLocationUpdates();
-
+            /*Intent alpha = new Intent(Splash.this, SignIn.class);
+            startActivity(alpha);*/
+            /*getLocationUpdates();
+*/
         }
     }
 
@@ -208,7 +173,7 @@ public class Splash extends Activity implements OnMapReadyCallback, GoogleApiCli
     @Override
     public void onLocationChanged(final Location location)
     {
-            Log.d("location has changed", location.getLatitude()+" "+location.getLongitude());
+          /*  Log.d("location has changed", location.getLatitude()+" "+location.getLongitude());
         rx.Observable<LocationModel> push_location = inter.getLocationInfo1("7hysysby8ryvr8wbywrvy", location.getLongitude(), location.getLatitude());
 
         push_location.observeOn(AndroidSchedulers.mainThread())
@@ -238,13 +203,11 @@ public class Splash extends Activity implements OnMapReadyCallback, GoogleApiCli
                         editor.commit();
 
                     }
-                });
-
-
-            splash_change();
+                });*/
     }
 
-    private void getLocationUpdates() {
+    private void getLocationUpdates()
+                {
         Log.d("Owo bi","It's here");
         locationRequest = LocationRequest.create();
         locationRequest.setInterval(15000);

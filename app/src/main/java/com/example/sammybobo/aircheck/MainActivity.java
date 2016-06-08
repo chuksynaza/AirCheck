@@ -81,6 +81,7 @@ public class MainActivity extends Activity{
         arrayAdapter.add("Settings");
         arrayAdapter.add("Use GIBS Services");
         arrayAdapter.add("Feedback");
+        arrayAdapter.add("Sign out");
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -102,14 +103,11 @@ public class MainActivity extends Activity{
         Log.d("Hello here it is", sharedPreferences.getString("temperature", "helo"));
         sharedPreferences.getString("temperature", "helo");
         final String temperature = sharedPreferences.getString("temperature", "helo");
-        temperature_.setText("34"  + (char) 0x00B0);
+        temperature_.setText(temperature  + (char) 0x00B0);
         final String location = sharedPreferences.getString("city","hello");
-        location_.setText("Ilorin, Nigeria");
-        double num = Double.parseDouble(temperature);
-        circularProgressBar.setProgressWithAnimation(34);
-        Log.d("hello world", " "+num);
-
-
+        location_.setText(location);
+//        double num = Double.parseDouble(temperature);
+     //./   circularProgressBar.setProgressWithAnimation((float)num);
 
         //alertDialog = new AlertDialog.Builder(MainActivity.this);
 
@@ -213,6 +211,13 @@ public class MainActivity extends Activity{
                                     }
                                 });
                                 _dialog_.show();
+                                break;
+                            case 8:
+                                editor.clear();
+                                editor.commit();
+                                Intent sign_out = new Intent(MainActivity.this, SignIn.class);
+                                startActivity(sign_out);
+
 
                         }
                     }
